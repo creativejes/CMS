@@ -15,5 +15,5 @@ services:
 
 databases:
   - name: complaint-db
-    databaseName: complaintsys
+    databaseName: complaint_db
     user: complaintuser
