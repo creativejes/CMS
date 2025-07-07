@@ -1,0 +1,45 @@
+
+{% extends 'core/base_public.html' %}
+{% block title %}Welcome | ComplaintLS{% endblock %}
+
+{% block content %}
+<div class="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900">
+  <div class="text-center px-4 sm:px-0">
+
+    <!-- Hero Section -->
+    <h1 class="text-3xl sm:text-4xl font-extrabold mb-4 text-gray-900 dark:text-white animate-bounce">
+      Welcome to Complaint Logging System
+    </h1>
+    <p class="text-gray-600 dark:text-gray-400 text-sm sm:text-base mb-6">
+      A smarter way to submit, track, and resolve your complaints.
+    </p>
+
+    <!-- CTA Buttons -->
+    <div class="flex justify-center space-x-4">
+      <a href="{% url 'login' %}" class="bg-black text-white font-semibold py-3 px-6 rounded-full hover:bg-gray-900 transition">
+        Login
+      </a>
+      <a href="{% url 'register' %}" class="bg-white text-black font-semibold py-3 px-6 rounded-full border border-black hover:bg-gray-100 transition">
+        Register
+      </a>
+    </div>
+
+    <!-- Typed.js Dynamic Text -->
+    <div class="mt-6 text-lg text-primary font-semibold">
+      <span id="typed"></span>
+    </div>
+
+  </div>
+</div>
+
+<!-- Typed.js Script -->
+<script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+<script>
+  new Typed('#typed', {
+    strings: ["Submit. Track. Resolve.", "Make your voice heard.", "Start by logging in or registering now."],
+    typeSpeed: 50,
+    backSpeed: 30,
+    loop: true
+  });
+</script>
+{% endblock %}

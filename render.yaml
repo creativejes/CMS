@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: complaintsys
+    env: python
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "gunicorn complaintsys.wsgi:application"
+    envVars:
+      - key: DEBUG
+        value: false
+      - key: SECRET_KEY
+        generateValue: true
+      - fromDatabase:
+          name: complaint-db
+          property: connectionString
+
+databases:
+  - name: complaint-db
+    databaseName: complaintsys
+    user: complaintuser

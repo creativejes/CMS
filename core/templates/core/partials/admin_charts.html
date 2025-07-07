@@ -1,0 +1,54 @@
+
+<!-- Charts -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+  <div class="bg-white dark:bg-gray-800 p-4 rounded shadow">
+    <h3 class="text-lg font-semibold text-gray-800 dark:text-white mb-4">Complaints by Status</h3>
+    <canvas id="statusChart" height="120"></canvas>
+  </div>
+  <div class="bg-white dark:bg-gray-800 p-4 rounded shadow">
+    <h3 class="text-lg font-semibold text-gray-800 dark:text-white mb-4">Complaints by Category</h3>
+    <canvas id="categoryChart" height="120"></canvas>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  const statusChart = document.getElementById('statusChart');
+  new Chart(statusChart, {
+    type: 'bar',
+    data: {
+      labels: {{ status_labels|safe }},
+      datasets: [{
+        label: 'Complaints',
+        data: {{ status_counts|safe }},
+        backgroundColor: ['#3B82F6', '#FACC15', '#10B981', '#EF4444']
+      }]
+    },
+    options: {
+      responsive: true,
+      scales: {
+        y: { beginAtZero: true }
+      }
+    }
+  });
+
+  const categoryChart = document.getElementById('categoryChart');
+  new Chart(categoryChart, {
+    type: 'doughnut',
+    data: {
+      labels: {{ category_labels|safe }},
+      datasets: [{
+        data: {{ category_counts|safe }},
+        backgroundColor: ['#6366F1', '#EC4899', '#F59E0B', '#10B981']
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: {
+          position: 'bottom'
+        }
+      }
+    }
+  });
+</script>

@@ -1,0 +1,11 @@
+<header class="flex justify-between items-center bg-white dark:bg-gray-800 px-4 py-3 border-b border-gray-200 dark:border-gray-700">
+  <button class="md:hidden text-primary" onclick="toggleSidebar()">☰</button>
+  <div class="text-sm">
+    {% if user.is_authenticated %}
+      <span>Welcome, <strong>{{ user.username }}</strong></span>
+      <button onclick="toggleDark()" class="ml-4 px-2 py-1 bg-gray-100 dark:bg-gray-700 rounded text-sm">
+        🌓 Toggle Theme
+      </button>
+    {% endif %}
+  </div>
+</header>

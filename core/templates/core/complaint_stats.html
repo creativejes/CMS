@@ -1,0 +1,77 @@
+{% extends 'core/base.html' %}
+{% block title %}Complaint Stats{% endblock %}
+
+{% block content %}
+<div class="flex items-center justify-between mb-6">
+  <h2 class="text-3xl font-semibold">Complaint Statistics Overview</h2>
+  <button onclick="downloadPDF()" class="bg-primary hover:bg-blue-700 text-white px-4 py-2 text-sm rounded-lg shadow">
+    Download PDF
+  </button>
+</div>
+
+<div id="pdf-content" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+  <div class="bg-white dark:bg-gray-800 p-4 rounded-xl shadow">
+    <h3 class="text-lg font-semibold mb-3">Complaints by Category</h3>
+    <canvas id="categoryChart" class="w-full"></canvas>
+  </div>
+
+  <div class="bg-white dark:bg-gray-800 p-4 rounded-xl shadow">
+    <h3 class="text-lg font-semibold mb-3">Complaint Status Overview</h3>
+    <canvas id="statusChart" class="w-full"></canvas>
+  </div>
+</div>
+
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<!-- html2pdf.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+<script>
+  const categoryData = {{ category_data|safe }};
+  const statusData = {{ status_data|safe }};
+
+  const categoryChart = new Chart(document.getElementById('categoryChart'), {
+    type: 'bar',
+    data: {
+      labels: categoryData.labels,
+      datasets: [{
+        label: 'Number of Complaints',
+        data: categoryData.values,
+        backgroundColor: '#3b82f6'
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: { display: false }
+      }
+    }
+  });
+
+  const statusChart = new Chart(document.getElementById('statusChart'), {
+    type: 'doughnut',
+    data: {
+      labels: statusData.labels,
+      datasets: [{
+        data: statusData.values,
+        backgroundColor: ['#22c55e', '#facc15', '#ef4444']
+      }]
+    },
+    options: {
+      responsive: true
+    }
+  });
+
+  function downloadPDF() {
+    const element = document.getElementById('pdf-content');
+    const options = {
+      filename: 'complaint_stats.pdf',
+      margin: 0.5,
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 2 },
+      jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
+    };
+    html2pdf().set(options).from(element).save();
+  }
+</script>
+{% endblock %}

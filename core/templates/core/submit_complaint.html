@@ -1,0 +1,92 @@
+
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}Submit Complaint | ComplaintMS{% endblock %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto bg-white dark:bg-gray-800 p-8 rounded shadow-md">
+  <h2 class="text-2xl font-bold text-primary mb-6 flex items-center">
+     Submit a Complaint
+  </h2>
+
+  <form method="POST" enctype="multipart/form-data" class="space-y-6">
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+
+    <!-- Complaint Category -->
+    <div>
+      <label class="block text-sm font-semibold mb-1">Complaint Category</label>
+      {{ form.category }}
+      {% if form.category.errors %}
+        <p class="text-red-600 text-sm mt-1">{{ form.category.errors }}</p>
+      {% endif %}
+    </div>
+
+    <!-- Department -->
+    <div>
+      <label class="block text-sm font-semibold mb-1">Department</label>
+      {{ form.department }}
+      {% if form.department.errors %}
+        <p class="text-red-600 text-sm mt-1">{{ form.department.errors }}</p>
+      {% endif %}
+    </div>
+
+    <!-- Complaint Title -->
+    <div>
+      <label class="block text-sm font-semibold mb-1">Complaint Title</label>
+      {{ form.title }}
+      {% if form.title.errors %}
+        <p class="text-red-600 text-sm mt-1">{{ form.title.errors }}</p>
+      {% endif %}
+    </div>
+
+    <!-- Description -->
+    <div>
+      <label class="block text-sm font-semibold mb-1">Description</label>
+      {{ form.description }}
+      {% if form.description.errors %}
+        <p class="text-red-600 text-sm mt-1">{{ form.description.errors }}</p>
+      {% endif %}
+    </div>
+
+    <!-- Date of Incident -->
+    <div>
+      <label class="block text-sm font-semibold mb-1">Date of Incident</label>
+      {{ form.date_of_incident }}
+      {% if form.date_of_incident.errors %}
+        <p class="text-red-600 text-sm mt-1">{{ form.date_of_incident.errors }}</p>
+      {% endif %}
+    </div>
+
+    <!-- File Upload -->
+    <div>
+      <label class="block text-sm font-semibold mb-1">Attachment (optional)</label>
+      {{ form.file_attachment }}
+      {% if form.file_attachment.errors %}
+        <p class="text-red-600 text-sm mt-1">{{ form.file_attachment.errors }}</p>
+      {% endif %}
+    </div>
+
+    <!-- Anonymity Toggle -->
+    <div class="flex items-center space-x-2">
+      {{ form.is_anonymous }}
+      <label class="text-sm">Submit as anonymous</label>
+    </div>
+
+    <!-- Confirmation -->
+    <div class="flex items-center space-x-2">
+      {{ form.confirmation }}
+      <label class="text-sm">I confirm this information is accurate</label>
+    </div>
+
+    <!-- Submit Button -->
+    <div class="pt-4 flex justify-end space-x-3">
+      <a href="{% url 'dashboard' %}" class="px-4 py-2 rounded bg-gray-200 hover:bg-gray-300 text-sm">Cancel</a>
+      <button type="submit" class="px-6 py-2 bg-black text-white rounded hover:bg-gray-800 text-sm">
+        Submit Complaint
+      </button>
+    </div>
+  </form>
+</div>
+{% endblock %}

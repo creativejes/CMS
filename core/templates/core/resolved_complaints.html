@@ -1,0 +1,28 @@
+{% extends 'core/base.html' %}
+{% block title %}Resolved Complaints{% endblock %}
+
+{% block content %}
+<div class="flex items-center justify-between mb-6">
+  <h2 class="text-3xl font-semibold">Resolved Complaints</h2>
+  <form method="get" class="flex items-center gap-2">
+    <input type="text" name="search" value="{{ request.GET.search }}" placeholder="Search complaints..."
+           class="px-3 py-2 w-64 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 text-sm focus:outline-none focus:ring-2 focus:ring-primary" />
+    <button type="submit" class="px-4 py-2 bg-primary text-white text-sm rounded-lg hover:bg-blue-700 transition">Search</button>
+  </form>
+</div>
+
+{% if complaints %}
+  <div class="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+    {% for complaint in complaints %}
+      <div class="bg-white dark:bg-gray-800 shadow rounded-xl p-4 hover:shadow-lg transition">
+        <h3 class="text-lg font-bold text-primary mb-1">{{ complaint.title }}</h3>
+        <p class="text-sm text-gray-600 dark:text-gray-300 mb-2">{{ complaint.description|truncatewords:25 }}</p>
+        <p class="text-xs text-gray-400 dark:text-gray-500 mb-2">Submitted: {{ complaint.submitted_at|date:"F j, Y, g:i a" }}</p>
+        <span class="inline-block px-2 py-1 text-xs font-semibold bg-green-100 text-green-800 dark:bg-green-800 dark:text-green-100 rounded">Resolved</span>
+      </div>
+    {% endfor %}
+  </div>
+{% else %}
+  <p class="text-center text-gray-500 mt-10">No resolved complaints found.</p>
+{% endif %}
+{% endblock %}

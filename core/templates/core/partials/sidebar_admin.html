@@ -1,0 +1,43 @@
+<div class="h-full bg-white dark:bg-gray-800 text-gray-800 dark:text-white border-r dark:border-gray-700">
+  <nav class="p-4 space-y-4 text-sm" x-data>
+  
+    <!-- Admin Dashboard -->
+    <a href="{% url 'admin_dashboard' %}" 
+       class="flex items-center space-x-3 px-3 py-2 rounded hover:bg-gray-200 dark:hover:bg-gray-700 group"
+       :title="sidebarCollapsed ? 'Admin Dashboard' : ''">
+      <div class="flex justify-center items-center w-6 h-6 shrink-0">
+        <svg class="w-6 h-6 text-gray-700 dark:text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6v12M10 10v8M16 4v16" />
+        </svg>
+      </div>
+      <span x-show="!sidebarCollapsed" class="transition-opacity duration-200 group-hover:opacity-100">Admin Dashboard</span>
+    </a>
+
+    <!-- Django Admin Panel -->
+    <a href="{% url 'admin:index' %}" 
+       class="flex items-center space-x-3 px-3 py-2 rounded hover:bg-gray-200 dark:hover:bg-gray-700 group"
+       :title="sidebarCollapsed ? 'Django Admin' : ''">
+      <div class="flex justify-center items-center w-6 h-6 shrink-0">
+        <svg class="w-6 h-6 text-gray-700 dark:text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v16a1 1 0 01-1 1H4a1 1 0 01-1-1V4z" />
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 2v20M16 2v20" />
+        </svg>
+      </div>
+      <span x-show="!sidebarCollapsed" class="transition-opacity duration-200 group-hover:opacity-100">Django Admin</span>
+    </a>
+
+    <!-- Logout -->
+    <a href="{% url 'logout' %}" 
+       class="flex items-center space-x-3 px-3 py-2 rounded text-red-500 hover:bg-red-100 dark:hover:bg-red-700 group"
+       :title="sidebarCollapsed ? 'Logout' : ''">
+      <div class="flex justify-center items-center w-6 h-6 shrink-0">
+        <svg class="w-6 h-6 text-red-500 dark:text-red-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7"/>
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8v8"/>
+        </svg>
+      </div>
+      <span x-show="!sidebarCollapsed" class="transition-opacity duration-200 group-hover:opacity-100">Logout</span>
+    </a>
+
+  </nav>
+</div>

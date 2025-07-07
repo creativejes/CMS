@@ -1,0 +1,50 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+<h2 class="text-3xl font-semibold mb-6 flex items-center gap-2">
+  <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"
+       xmlns="http://www.w3.org/2000/svg">
+    <path stroke-linecap="round" stroke-linejoin="round"
+          d="M15.232 5.232l3.536 3.536M9 11l6-6m2 10v6a2 2 0 01-2 2H6a2 2 0 01-2-2V7a2 2 0 012-2h6" />
+  </svg>
+  My Complaints
+</h2>
+
+{% if complaints %}
+  <div class="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+    {% for complaint in complaints %}
+      <div class="bg-white dark:bg-gray-800 shadow rounded-xl p-4 hover:shadow-lg transition">
+        <h3 class="text-lg font-bold text-primary mb-1">{{ complaint.title }}</h3>
+        <p class="text-sm text-gray-600 dark:text-gray-300 mb-2">
+          {{ complaint.description|truncatewords:25 }}
+        </p>
+        <p class="text-xs text-gray-400 dark:text-gray-500 mb-2">
+          Submitted: {{ complaint.submitted_at|date:"F j, Y, g:i a" }}
+        </p>
+
+        <span class="inline-block px-2 py-1 text-xs font-semibold rounded-full
+          {% if complaint.status == 'submitted' %}
+            bg-blue-100 text-blue-700
+          {% elif complaint.status == 'resolved' %}
+            bg-green-100 text-green-700
+          {% elif complaint.status == 'escalated' %}
+            bg-red-100 text-red-700
+          {% else %}
+            bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-100
+          {% endif %}">
+          {{ complaint.status|capfirst }}
+        </span>
+
+        <div class="mt-3">
+          <a href="{% url 'view_complaint' complaint.id %}" 
+             class="text-sm text-blue-600 dark:text-blue-400 hover:underline">
+            View
+          </a>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+{% else %}
+  <p class="text-gray-500 text-center mt-10">You haven’t submitted any complaints yet.</p>
+{% endif %}
+{% endblock %}

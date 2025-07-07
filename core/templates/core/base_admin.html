@@ -1,0 +1,56 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" class="h-full bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-white">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{% block title %}Admin - ComplaintLS{% endblock %}</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" />
+  <link rel="icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon" />
+</head>
+<body x-data="{
+    sidebarCollapsed: JSON.parse(localStorage.getItem('sidebarCollapsed')) || false
+  }"
+  x-init="$watch('sidebarCollapsed', value => localStorage.setItem('sidebarCollapsed', JSON.stringify(value)))"
+  class="h-full antialiased font-sans"
+>
+
+  <!-- Topbar -->
+  <header class="flex items-center justify-between bg-white dark:bg-gray-800 px-4 py-3 border-b dark:border-gray-700">
+    <div class="flex items-center space-x-4">
+      <!-- Collapse Toggle Button -->
+      <button @click="sidebarCollapsed = !sidebarCollapsed" class="text-gray-700 dark:text-white focus:outline-none">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+      <a href="{% url 'admin_dashboard' %}" class="font-bold text-lg text-primary hover:underline">Admin | ComplaintLS</a>
+    </div>
+    <div class="flex items-center space-x-4">
+      <div class="w-9 h-9 rounded-full bg-black text-white flex items-center justify-center font-semibold text-sm overflow-hidden">
+        {% if request.user.profile.avatar %}
+          <img src="{{ request.user.profile.avatar.url }}" alt="Avatar" class="w-full h-full object-cover rounded-full" />
+        {% else %}
+          <span>{{ request.user.first_name|default:"U"|slice:":1" }}{{ request.user.last_name|default:"N"|slice:":1" }}</span>
+        {% endif %}
+      </div>
+      <span class="text-sm">{{ request.user.get_full_name }}</span>
+      <a href="{% url 'logout' %}" class="text-sm text-red-600 hover:underline">Logout</a>
+    </div>
+  </header>
+
+  <div class="flex h-screen overflow-hidden">
+    <div :class="sidebarCollapsed ? 'w-16' : 'w-64'" class="transition-all duration-300">
+      {% include 'core/partials/sidebar_admin.html' %}
+    </div>
+    <main class="flex-1 bg-gray-50 dark:bg-gray-900 p-6 overflow-auto">
+      {% block content %}{% endblock %}
+    </main>
+  </div>
+
+  {% block scripts %}
+  <script src="https://unpkg.com/alpinejs" defer></script>
+  {% endblock %}
+</body>
+</html>

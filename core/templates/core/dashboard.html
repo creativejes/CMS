@@ -1,0 +1,79 @@
+
+{% extends 'core/base.html' %}
+{% block title %}Dashboard | ComplaintLS{% endblock %}
+{% include 'core/partials/sidebar.html' %}
+
+{% block content %}
+<!-- Dashboard Header -->
+<div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6">
+  <div>
+    <h1 class="text-2xl font-bold text-gray-900 dark:text-white">
+      Dashboard
+    </h1>
+    <p class="text-sm text-gray-500 mt-1 dark:text-gray-400">
+      Welcome back, {{ request.user.first_name|default:request.user.username }} 👋
+    </p>
+  </div>
+
+  <div class="mt-4 sm:mt-0 flex items-center space-x-4">
+    <!-- User Avatar -->
+    <div class="flex items-center space-x-2">
+      <div class="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center font-semibold uppercase">
+        {{ request.user.first_name|slice:":1" }}{{ request.user.last_name|slice:":1" }}
+      </div>
+      <span class="hidden sm:block text-sm text-gray-600 dark:text-gray-300">
+        {{ request.user.get_full_name|default:request.user.username }}
+      </span>
+    </div>
+  </div>
+</div>
+
+<!-- Dashboard Analytics Grid -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+  <div class="bg-white dark:bg-gray-800 rounded shadow p-4">
+    <h3 class="text-sm text-gray-500">Total Complaints</h3>
+    <p class="text-2xl font-semibold text-primary mt-2">{{ total_count }}</p>
+  </div>
+
+  <div class="bg-white dark:bg-gray-800 rounded shadow p-4">
+    <h3 class="text-sm text-gray-500">Resolved</h3>
+    <p class="text-2xl font-semibold text-green-500 mt-2">{{ resolved_count }}</p>
+  </div>
+
+  <div class="bg-white dark:bg-gray-800 rounded shadow p-4">
+    <h3 class="text-sm text-gray-500">Submitted / In Progress</h3>
+    <p class="text-2xl font-semibold text-yellow-500 mt-2">{{ pending_count }}</p>
+  </div>
+</div>
+
+<!-- Recent Complaints Table -->
+<div class="mt-8 bg-white dark:bg-gray-800 rounded shadow">
+  <div class="p-4 border-b dark:border-gray-700">
+    <h2 class="text-lg font-bold">Recent Complaints</h2>
+  </div>
+  <div class="overflow-x-auto">
+    <table class="min-w-full text-sm">
+      <thead>
+        <tr class="text-left text-gray-500 uppercase border-b dark:border-gray-700">
+          <th class="p-4">Title</th>
+          <th class="p-4">Status</th>
+          <th class="p-4">Date</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y dark:divide-gray-700">
+        {% for complaint in recent_complaints %}
+          <tr class="hover:bg-gray-100 dark:hover:bg-gray-700">
+            <td class="p-4">{{ complaint.title }}</td>
+            <td class="p-4 capitalize">{{ complaint.status }}</td>
+            <td class="p-4">{{ complaint.submitted_at|date:"M d, Y" }}</td>
+          </tr>
+        {% empty %}
+          <tr>
+            <td class="p-4" colspan="3">No recent complaints.</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

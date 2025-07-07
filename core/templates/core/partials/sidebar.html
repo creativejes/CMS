@@ -1,0 +1,66 @@
+<div :class="sidebarCollapsed ? 'w-16' : 'w-64'" class="transition-all duration-300 bg-white dark:bg-gray-800 text-gray-800 dark:text-white border-r dark:border-gray-700">
+  <nav class="p-4 space-y-4 text-sm" x-data>
+
+    <!-- Dashboard -->
+    <a href="{% url 'dashboard' %}" 
+       class="flex items-center space-x-3 px-3 py-2 rounded hover:bg-gray-200 dark:hover:bg-gray-700 group"
+       :title="sidebarCollapsed ? 'Dashboard' : ''">
+      <div class="flex justify-center items-center w-6 h-6 shrink-0">
+        <svg class="w-6 h-6 text-gray-700 dark:text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M13 5v6h6m4 4H5a2 2 0 00-2 2v3h18v-3a2 2 0 00-2-2z" />
+        </svg>
+      </div>
+      <span x-show="!sidebarCollapsed" class="transition-opacity duration-200 group-hover:opacity-100">Dashboard</span>
+    </a>
+
+    <!-- Submit Complaint -->
+    <a href="{% url 'submit_complaint' %}" 
+       class="flex items-center space-x-3 px-3 py-2 rounded hover:bg-gray-200 dark:hover:bg-gray-700 group"
+       :title="sidebarCollapsed ? 'Submit Complaint' : ''">
+      <div class="flex justify-center items-center w-6 h-6 shrink-0">
+        <svg class="w-6 h-6 text-gray-700 dark:text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+        </svg>
+      </div>
+      <span x-show="!sidebarCollapsed" class="transition-opacity duration-200 group-hover:opacity-100">Submit Complaint</span>
+    </a>
+
+    <!-- My Complaints -->
+    <a href="{% url 'my_complaints' %}" 
+       class="flex items-center space-x-3 px-3 py-2 rounded hover:bg-gray-200 dark:hover:bg-gray-700 group"
+       :title="sidebarCollapsed ? 'My Complaints' : ''">
+      <div class="flex justify-center items-center w-6 h-6 shrink-0">
+        <svg class="w-6 h-6 text-gray-700 dark:text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+        </svg>
+      </div>
+      <span x-show="!sidebarCollapsed" class="transition-opacity duration-200 group-hover:opacity-100">My Complaints</span>
+    </a>
+
+    <!-- Stats -->
+    <a href="{% url 'complaint_stats' %}" 
+       class="flex items-center space-x-3 px-3 py-2 rounded hover:bg-gray-200 dark:hover:bg-gray-700 group"
+       :title="sidebarCollapsed ? 'Stats' : ''">
+      <div class="flex justify-center items-center w-6 h-6 shrink-0">
+        <svg class="w-6 h-6 text-gray-700 dark:text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 11V3H6v8H2l10 9 10-9h-4V3h-5v8z"/>
+        </svg>
+      </div>
+      <span x-show="!sidebarCollapsed" class="transition-opacity duration-200 group-hover:opacity-100">Stats</span>
+    </a>
+
+    <!-- Logout -->
+    <a href="{% url 'logout' %}" 
+       class="flex items-center space-x-3 px-3 py-2 rounded text-red-500 hover:bg-red-100 dark:hover:bg-red-700 group"
+       :title="sidebarCollapsed ? 'Logout' : ''">
+      <div class="flex justify-center items-center w-6 h-6 shrink-0">
+        <svg class="w-6 h-6 text-red-500 dark:text-red-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7"/>
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8v8"/>
+        </svg>
+      </div>
+      <span x-show="!sidebarCollapsed" class="transition-opacity duration-200 group-hover:opacity-100">Logout</span>
+    </a>
+
+  </nav>
+</div>
